@@ -1,5 +1,45 @@
 'use strict'
 
+//generate new todos
+const generateTodoDOM = (todo) => {
+    const todoElement = document.createElement('label')
+    const containerElement = document.createElement('div')
+    const checkElement = document.createElement('input')
+    const textElement = document.createElement('span')
+    const buttonElement = document.createElement('button')
+
+    // Setup todo checkbox
+    checkElement.setAttribute('type','checkbox')
+    checkElement.checked = todo.completed
+    containerElement.appendChild(checkElement)
+    checkElement.addEventListener('change', () => {
+        toggleTodo(todo.id)
+        saveTodo(todo)
+        renderTodo(todo, filters)
+    })
+
+    // Setup todo Text
+    textElement.textContent = todo.text
+    containerElement.appendChild(textElement)
+
+    // Setup Container
+    todoElement.classList.add('list-item')
+    containerElement.classList.add('list-item__container')
+    todoElement.appendChild(containerElement)
+
+    // Setup remove button
+    buttonElement.textContent = 'Remove'
+    buttonElement.classList.add('button', 'button--text')
+    todoElement.appendChild(buttonElement)
+    buttonElement.addEventListener('click', () => {
+        removeTodo(todo.id)
+        saveTodo(todo)
+        renderTodo(todo, filters)
+    })
+
+    return todoElement
+}
+
 //get existing todos
 const getSavedTodo = () => {
     const todoJSON = localStorage.getItem('todo')
@@ -59,46 +99,6 @@ const renderTodo = (todo, filters) => {
         messageElement.textContent = 'No Things To Do Today'
         todoElement.appendChild(messageElement)
     }
-}
-
-//generate new todos
-const generateTodoDOM = (todo) => {
-    const todoElement = document.createElement('label')
-    const containerElement = document.createElement('div')
-    const checkElement = document.createElement('input')
-    const textElement = document.createElement('span')
-    const buttonElement = document.createElement('button')
-
-    // Setup todo checkbox
-    checkElement.setAttribute('type','checkbox')
-    checkElement.checked = todo.completed
-    containerElement.appendChild(checkElement)
-    checkElement.addEventListener('change', () => {
-        toggleTodo(todo.id)
-        saveTodo(todo)
-        renderTodo(todo, filters)
-    })
-
-    // Setup todo Text
-    textElement.textContent = todo.text
-    containerElement.appendChild(textElement)
-
-    // Setup Container
-    todoElement.classList.add('list-item')
-    containerElement.classList.add('list-item__container')
-    todoElement.appendChild(containerElement)
-
-    // Setup remove button
-    buttonElement.textContent = 'Remove'
-    buttonElement.classList.add('button', 'button--text')
-    todoElement.appendChild(buttonElement)
-    buttonElement.addEventListener('click', () => {
-        removeTodo(todo.id)
-        saveTodo(todo)
-        renderTodo(todo, filters)
-    })
-
-    return todoElement
 }
 
 //generate summary message
