@@ -1,30 +1,5 @@
 'use strict'
 
-//Read existing notes from Local Storage
-const getSavedNotes = () => {
-    const notesJSON = localStorage.getItem('notes')
-
-    try {
-        return notesJSON ? JSON.parse(notesJSON) : []
-    } catch (e) {
-        return []
-    }
-}
-
-//Save notes to Local Storage
-const savedNotes = (notes) => {
-    localStorage.setItem('notes',JSON.stringify(notes))
-}
-
-//Remove note from the list
-const removeNote = (id) => {
-    const noteIndex = notes.findIndex((note) => note.id === id)
-
-    if (noteIndex > -1){
-        notes.splice(noteIndex, 1)
-    }
-}
-
 //Generate DOM structure for a note
 const generateNoteDOM = (note) => {
     const noteEl = document.createElement('a')
@@ -52,6 +27,31 @@ const generateNoteDOM = (note) => {
     noteEl.appendChild(statusEl)
 
     return noteEl
+}
+
+//Read existing notes from Local Storage
+const getSavedNotes = () => {
+    const notesJSON = localStorage.getItem('notes')
+
+    try {
+        return notesJSON ? JSON.parse(notesJSON) : []
+    } catch (e) {
+        return []
+    }
+}
+
+//Save notes to Local Storage
+const savedNotes = (notes) => {
+    localStorage.setItem('notes',JSON.stringify(notes))
+}
+
+//Remove note from the list
+const removeNote = (id) => {
+    const noteIndex = notes.findIndex((note) => note.id === id)
+
+    if (noteIndex > -1){
+        notes.splice(noteIndex, 1)
+    }
 }
 
 // Sort notes by one of three ways
